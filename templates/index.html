@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Music Player</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Music Player</h1>
+        <form method="POST" action="/upload" enctype="multipart/form-data">
+            <input type="text" name="title" placeholder="Title" required>
+            <input type="text" name="artist" placeholder="Artist">
+            <input type="file" name="file" accept=".mp3" required>
+            <button type="submit">Upload</button>
+        </form>
+        <ul>
+            {% for song in songs %}
+                <li>
+                    <span>{{ song[1] }} - {{ song[2] }}</span>
+                    <audio controls>
+                        <source src="/music/{{ song[3] }}" type="audio/mpeg">
+                        Your browser does not support the audio element.
+                    </audio>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
